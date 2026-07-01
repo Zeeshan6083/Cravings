@@ -3,6 +3,8 @@ import deliveryboy from "../assets/deliberyboy.png";
 import { Link } from "react-router-dom";
 import { BsEye } from "react-icons/bs";
 import { BsEyeSlash } from "react-icons/bs";
+import api from "../config/api.config";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -31,6 +33,22 @@ const Login = () => {
       email: loginData.email.toLowerCase(),
       password: loginData.password,
     };
+    try {
+      console.log(11);
+
+      const res = await api.post("/auth/login", payload);
+      console.log(33);
+
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error(
+        error.response.status + "|" + error.response?.data?.message ||
+          error.message,
+      );
+    }
+  };
+
+  
   };
 
   const isshowPassword = () => {
@@ -87,7 +105,7 @@ const Login = () => {
             <div className=" flex justify-between">
               <span>
                 <input type="checkbox" />
-                <label htmlFor="rember">Remember me</label>
+                <label htmlFor="remember">Remember me</label>
               </span>
               <Link to={"/register"} className="text-(--secondary) hover:text-(--accent) hover:underline decoration-(--secondary)">
                 Forgot Password?
@@ -123,7 +141,6 @@ const Login = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
 
 export default Login;
