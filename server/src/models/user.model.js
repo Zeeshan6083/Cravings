@@ -15,24 +15,20 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    dob: {
+      type: Date,
+      required: true,
+    },
     gender: {
       type: String,
       required: true,
-    },
-    photo: {
-      url: {
-        type: String,
-      },
-      publicId: {
-        type: String,
-      },
     },
     password: {
       type: String,
       required: true,
     },
-    dob: {
-      type: Date,
+    photo: {
+      type: String,
       required: true,
     },
   },
@@ -41,6 +37,6 @@ const UserSchema = mongoose.Schema(
   },
 );
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model("user", UserSchema);
 
 export default User;
