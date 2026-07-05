@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import deliveryboy from "../assets/deliberyboy.png";
 import api from "../config/api.config.js";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -46,9 +47,13 @@ const Register = () => {
 
     try {
       const res = await api.post("/auth/register", payload);
-      alert(res.data.message);
+      toast.success(res.data.message);
     } catch (error) {
-      console.log(res?.data?.message || error.message);
+      toast.error(
+        error.response.status + "|" + error.response?.data?.message ||
+          error.message,
+      );
+      console.log(error.response?.data?.message || error.message);
     }
   };
 
@@ -184,7 +189,7 @@ const Register = () => {
             <p className="text-sm">
               Having Trouble?{" "}
               <button
-                onClick={() => navigate("/contact")}
+                onClick={() => navigate("/contact-us")}
                 className="text-(--primary) hover:underline font-semibold"
               >
                 Contact Us
